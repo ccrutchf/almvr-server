@@ -1,0 +1,9 @@
+{
+  "$schema": "NerdBank.GitVersioning/version.schema.json",
+  "version": "1.0",
+  "cloudBuild": {
+    "buildNumber": {
+      "enabled": true
+    }
+  }
+}

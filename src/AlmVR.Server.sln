@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlmVR.Server", "AlmVR.Server\AlmVR.Server.csproj", "{212005D6-D474-41BD-9C17-05A38188E7FF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlmVR.Server.Core", "AlmVR.Server.Core\AlmVR.Server.Core.csproj", "{DE605557-E9FB-4CDB-B128-CE2FAA3BF044}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlmVR.Server.Providers.Trello", "AlmVR.Server.Providers.Trello\AlmVR.Server.Providers.Trello.csproj", "{F59EB3AB-4BA7-46D5-BF46-51AB3C22F990}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlmVR.Server.Provider.FileSystem", "AlmVR.Server.Provider.FileSystem\AlmVR.Server.Provider.FileSystem.csproj", "{16114BDF-422B-4B25-A770-2EBF43AFC844}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlmVR.Common.Models", "..\AlmVR.Common.Models\AlmVR.Common.Models\AlmVR.Common.Models.csproj", "{F445EC8D-56B7-4B5B-853B-8F83D241EA71}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{212005D6-D474-41BD-9C17-05A38188E7FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{212005D6-D474-41BD-9C17-05A38188E7FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{212005D6-D474-41BD-9C17-05A38188E7FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{212005D6-D474-41BD-9C17-05A38188E7FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE605557-E9FB-4CDB-B128-CE2FAA3BF044}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE605557-E9FB-4CDB-B128-CE2FAA3BF044}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE605557-E9FB-4CDB-B128-CE2FAA3BF044}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE605557-E9FB-4CDB-B128-CE2FAA3BF044}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F59EB3AB-4BA7-46D5-BF46-51AB3C22F990}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F59EB3AB-4BA7-46D5-BF46-51AB3C22F990}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F59EB3AB-4BA7-46D5-BF46-51AB3C22F990}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F59EB3AB-4BA7-46D5-BF46-51AB3C22F990}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16114BDF-422B-4B25-A770-2EBF43AFC844}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16114BDF-422B-4B25-A770-2EBF43AFC844}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16114BDF-422B-4B25-A770-2EBF43AFC844}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16114BDF-422B-4B25-A770-2EBF43AFC844}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F445EC8D-56B7-4B5B-853B-8F83D241EA71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F445EC8D-56B7-4B5B-853B-8F83D241EA71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F445EC8D-56B7-4B5B-853B-8F83D241EA71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F445EC8D-56B7-4B5B-853B-8F83D241EA71}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0304C852-367C-4059-88CC-155399FDA001}
+	EndGlobalSection
+EndGlobal
