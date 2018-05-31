@@ -26,6 +26,7 @@ Task("Clean")
     .Does(() =>
 {
     CleanDirectory(buildDir);
+	CleanDirectory(artifactsDir);
 });
 
 Task("Build-Server")
@@ -60,7 +61,7 @@ Task("Copy-Plugins")
 	var artifactsPluginsDir = artifactsDir + Directory("Plugins");
 
 	CreateDirectory(artifactsPluginsDir);
-	CopyFiles("./build/Plugins/*", artifactsPluginsDir);
+	CopyFiles($"./build/{configuration}/Plugins/*", artifactsPluginsDir);
 });
 
 Task("Docker-Build-Server")
