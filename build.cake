@@ -1,5 +1,8 @@
+#tool nuget:?package=Nerdbank.GitVersioning&version=2.1.23
+
 #addin "Cake.Incubator"
 #addin "Cake.Docker"
+#addin "Cake.Powershell"
 
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -18,6 +21,9 @@ var artifactsDir = Directory("./artifacts");
 
 var slnFile = File("./src/AlmVR.Server.sln");
 
+dynamic version;
+string dockerTag;
+
 //////////////////////////////////////////////////////////////////////
 // TASKS
 //////////////////////////////////////////////////////////////////////
@@ -27,6 +33,22 @@ Task("Clean")
 {
     CleanDirectory(buildDir);
 	CleanDirectory(artifactsDir);
+});
+
+Task("Git-Versioning")
+	.Does(() =>
+{
+	version = StartPowershellFile("./tools/Nerdbank.GitVersioning.2.1.23/tools/Get-Version.ps1")[1].BaseObject;
+
+	Information($"Version number: \"{version.AssemblyInformationalVersion}\".");
+
+	var script = @"
+if (Get-Command ""Update-AppveyorBuild"" -errorAction SilentlyContinue)
+{{
+    Update-AppveyorBuild -Version {0}
+}}";
+
+	StartPowershellScript(string.Format(script, version.AssemblyInformationalVersion));
 });
 
 Task("Build-Server")
@@ -47,7 +69,7 @@ Task("Publish-Server")
 {
      var settings = new DotNetCorePublishSettings
      {
-         Configuration = "Release",
+         Configuration = configuration,
          OutputDirectory = artifactsDir
      };
 
@@ -65,26 +87,41 @@ Task("Copy-Plugins")
 });
 
 Task("Docker-Build-Server")
+	.IsDependentOn("Git-Versioning")
 	.IsDependentOn("Copy-Plugins")
 	.Does(() =>
 {
+	dockerTag = $"almvr:{version.AssemblyFileVersion}";
+
+	Information($"Docker image tag: \"{dockerTag}\".");
+
 	var dockerImageBuildSettings = new DockerImageBuildSettings
 	{
-		Tag = new string[] { "almvr" }
+		Tag = new string[] { dockerTag }
 	};
 
 	DockerBuild(dockerImageBuildSettings, ".");
 });
 
-Task("Build")
-	.IsDependentOn("Docker-Build-Server");
+Task("Docker-Push-Server")
+	.WithCriteria(() => !string.IsNullOrWhiteSpace(EnvironmentVariable("DOCKER_USER")))
+	.WithCriteria(() => !string.IsNullOrWhiteSpace(EnvironmentVariable("DOCKER_PASSWORD")))
+	.IsDependentOn("Git-Versioning")
+	.IsDependentOn("Docker-Build-Server")
+	.Does(() =>
+{
+	var user = EnvironmentVariable("DOCKER_USER");
+	var password = EnvironmentVariable("DOCKER_PASSWORD");
+
+	DockerLogin(user, password);
+});
 
 //////////////////////////////////////////////////////////////////////
 // TASK TARGETS
 //////////////////////////////////////////////////////////////////////
 
 Task("Default")
-    .IsDependentOn("Build");
+    .IsDependentOn("Docker-Build-Server");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
