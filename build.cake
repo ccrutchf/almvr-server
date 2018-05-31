@@ -72,7 +72,7 @@ Task("Docker-Build-Server")
 		Tag = new string[] { "almvr" }
 	};
 
-	DockerBuild(dockerImageBuildSettings, "./src");
+	DockerBuild(dockerImageBuildSettings, ".");
 });
 
 Task("Build")
