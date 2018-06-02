@@ -20,7 +20,7 @@ var artifactsDir = Directory("./artifacts");
 var slnFile = File("./src/AlmVR.Server.sln");
 
 dynamic version;
-string dockerTag;
+string dockerVersion;
 
 //////////////////////////////////////////////////////////////////////
 // TASKS
@@ -81,7 +81,8 @@ Task("Docker-Build-Server")
 	.IsDependentOn("Copy-Plugins")
 	.Does(() =>
 {
-	dockerTag = $"almvr:{version.AssemblyFileVersion}";
+	dockerVersion = version.AssemblyFileVersion;
+	var dockerTag = $"almvr:{dockerVersion}";
 
 	Information($"Docker image tag: \"{dockerTag}\".");
 
@@ -107,10 +108,10 @@ Task("Docker-Push-Server")
 	DockerLogin(user, password);
 
 	Information("Tagging Docker Image");
-	DockerTag(dockerTag, $"https://hub.docker.com/r/ccrutchf/ucsd-research/{dockerTag}");
+	DockerTag(dockerTag, $"ccrutchf/almvr:{dockerVersion}");
 
 	Information("Pushing Docker Image");
-	DockerPush($"https://hub.docker.com/r/ccrutchf/ucsd-research/{dockerTag}");
+	DockerPush($"ccrutchf/almvr:{dockerVersion}");
 });
 
 //////////////////////////////////////////////////////////////////////
