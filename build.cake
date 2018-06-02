@@ -104,6 +104,8 @@ Task("Docker-Push-Server")
 	var password = EnvironmentVariable("DOCKER_PASSWORD");
 
 	DockerLogin(user, password);
+	DockerTag(dockerTag, $"https://hub.docker.com/r/ccrutchf/almvr/{dockerTag}");
+	DockerPush($"https://hub.docker.com/r/ccrutchf/almvr/{dockerTag}");
 });
 
 //////////////////////////////////////////////////////////////////////
@@ -111,7 +113,7 @@ Task("Docker-Push-Server")
 //////////////////////////////////////////////////////////////////////
 
 Task("Default")
-    .IsDependentOn("Docker-Build-Server");
+    .IsDependentOn("Docker-Push-Server");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
