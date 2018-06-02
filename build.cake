@@ -81,7 +81,7 @@ Task("Docker-Build-Server")
 	.IsDependentOn("Copy-Plugins")
 	.Does(() =>
 {
-	dockerVersion = version.AssemblyFileVersion;
+	dockerVersion = version.AssemblyFileVersion.ToString();
 	var dockerTag = $"almvr:{dockerVersion}";
 
 	Information($"Docker image tag: \"{dockerTag}\".");
