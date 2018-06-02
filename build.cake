@@ -107,10 +107,10 @@ Task("Docker-Push-Server")
 	DockerLogin(user, password);
 
 	Information("Tagging Docker Image");
-	DockerTag(dockerTag, $"https://hub.docker.com/r/ccrutchf/almvr/{dockerTag}");
+	DockerTag(dockerTag, $"https://hub.docker.com/r/ccrutchf/ucsd-research/{dockerTag}");
 
 	Information("Pushing Docker Image");
-	DockerPush($"https://hub.docker.com/r/ccrutchf/almvr/{dockerTag}");
+	DockerPush($"https://hub.docker.com/r/ccrutchf/ucsd-research/{dockerTag}");
 });
 
 //////////////////////////////////////////////////////////////////////
