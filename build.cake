@@ -1,8 +1,6 @@
-#tool nuget:?package=Nerdbank.GitVersioning&version=2.1.23
-
 #addin "Cake.Incubator"
 #addin "Cake.Docker"
-#addin "Cake.Powershell"
+#addin nuget:https://www.myget.org/F/alm-vr/api/v2?package=Cake.GitVersioning&prerelease
 
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -38,17 +36,9 @@ Task("Clean")
 Task("Git-Versioning")
 	.Does(() =>
 {
-	version = StartPowershellFile("./tools/Nerdbank.GitVersioning.2.1.23/tools/Get-Version.ps1")[1].BaseObject;
+	version = GitVersioningGetVersion();
 
 	Information($"Version number: \"{version.AssemblyInformationalVersion}\".");
-
-	var script = @"
-if (Get-Command ""Update-AppveyorBuild"" -errorAction SilentlyContinue)
-{{
-    Update-AppveyorBuild -Version {0}
-}}";
-
-	StartPowershellScript(string.Format(script, version.AssemblyInformationalVersion));
 });
 
 Task("Build-Server")
