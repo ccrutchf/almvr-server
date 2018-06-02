@@ -103,8 +103,13 @@ Task("Docker-Push-Server")
 	var user = EnvironmentVariable("DOCKER_USER");
 	var password = EnvironmentVariable("DOCKER_PASSWORD");
 
+	Information("Logging into Docker");
 	DockerLogin(user, password);
+
+	Information("Tagging Docker Image");
 	DockerTag(dockerTag, $"https://hub.docker.com/r/ccrutchf/almvr/{dockerTag}");
+
+	Information("Pushing Docker Image");
 	DockerPush($"https://hub.docker.com/r/ccrutchf/almvr/{dockerTag}");
 });
 
