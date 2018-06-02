@@ -108,7 +108,7 @@ Task("Docker-Push-Server")
 	DockerLogin(user, password);
 
 	Information("Tagging Docker Image");
-	DockerTag(dockerTag, $"ccrutchf/almvr:{dockerVersion}");
+	DockerTag($"almvr:{dockerVersion}", $"ccrutchf/almvr:{dockerVersion}");
 
 	Information("Pushing Docker Image");
 	DockerPush($"ccrutchf/almvr:{dockerVersion}");
