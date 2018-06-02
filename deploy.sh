@@ -1,4 +1,3 @@
-mkdir ~/.ssh
 echo $SSH_PRIVATE_KEY > ~/.ssh/id_rsa
 echo $SSH_PUBLIC_KEY > ~/.ssh/id_rsa.pub
 
