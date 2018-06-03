@@ -1,4 +1,4 @@
-OLD_DOCKER_VERSION=$(docker inspect --format='{{.Config.Image}}' "almvr-server")
+OLD_DOCKER_VERSION=$(/snap/bin/docker inspect --format='{{.Config.Image}}' "almvr-server")
 
 # Stop old instances
 /snap/bin/docker container stop "almvr-server"
