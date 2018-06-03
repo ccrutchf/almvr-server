@@ -23,6 +23,8 @@ var slnFile = File("./src/AlmVR.Server.sln");
 dynamic version;
 string dockerVersion;
 
+string GetDockerVersionFilePath() => Directory(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)) + Directory("docker-version");
+
 //////////////////////////////////////////////////////////////////////
 // TASKS
 //////////////////////////////////////////////////////////////////////
@@ -33,19 +35,25 @@ Task("Clean")
     CleanDirectory(buildDir);
 	CleanDirectory(artifactsDir);
 
-	if (FileExists("~/docker-version"))
-		DeleteFile("~/docker-version");
+	var dockerVersionFile = GetDockerVersionFilePath();
+
+	if (FileExists(dockerVersionFile))
+		DeleteFile(dockerVersionFile);
 });
 
 Task("Git-Versioning")
+	.IsDependentOn("Clean")
 	.Does(() =>
 {
 	version = GitVersioningGetVersion();
 
 	Information($"Version number: \"{version.AssemblyInformationalVersion}\".");
 
+	var dockerVersionFile = GetDockerVersionFilePath();
+	Information($"Docker Version File: \"{dockerVersionFile}\"");
+	
 	dockerVersion = version.AssemblyFileVersion.ToString();
-	FileWriteText("~/docker-version", dockerVersion);
+	FileWriteText(dockerVersionFile, dockerVersion);
 });
 
 Task("Build-Server")
