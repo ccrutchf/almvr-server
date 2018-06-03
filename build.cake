@@ -1,5 +1,6 @@
 #addin "Cake.Incubator"
 #addin "Cake.Docker"
+#addin "Cake.FileHelpers"
 #addin nuget:https://www.myget.org/F/alm-vr/api/v2?package=Cake.GitVersioning&prerelease
 
 //////////////////////////////////////////////////////////////////////
@@ -31,6 +32,9 @@ Task("Clean")
 {
     CleanDirectory(buildDir);
 	CleanDirectory(artifactsDir);
+
+	if (FileExists("~/docker-version"))
+		DeleteFile("~/docker-version");
 });
 
 Task("Git-Versioning")
@@ -39,6 +43,9 @@ Task("Git-Versioning")
 	version = GitVersioningGetVersion();
 
 	Information($"Version number: \"{version.AssemblyInformationalVersion}\".");
+
+	dockerVersion = version.AssemblyFileVersion.ToString();
+	FileWriteText("~/docker-version", dockerVersion);
 });
 
 Task("Build-Server")
@@ -81,7 +88,6 @@ Task("Docker-Build-Server")
 	.IsDependentOn("Copy-Plugins")
 	.Does(() =>
 {
-	dockerVersion = version.AssemblyFileVersion.ToString();
 	var dockerTag = $"almvr:{dockerVersion}";
 
 	Information($"Docker image tag: \"{dockerTag}\".");

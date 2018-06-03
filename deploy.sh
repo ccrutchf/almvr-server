@@ -1,1 +1,1 @@
-sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_IP 'bash -s' < ./remote_deploy.sh
+sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_IP "DOCKER_VERSION=$(cat ~/docker-version) && bash -s" < ./remote_deploy.sh
