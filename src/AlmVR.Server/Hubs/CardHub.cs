@@ -21,5 +21,10 @@ namespace AlmVR.Server.Hubs
         {
             return cardProvider.GetCardAsync(id);
         }
+
+        public Task MoveCard(CardModel card, SwimLaneModel targetSwimLane)
+        {
+            return cardProvider.MoveCardAsync(card, targetSwimLane);
+        }
     }
 }
