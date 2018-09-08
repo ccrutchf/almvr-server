@@ -40,12 +40,12 @@ namespace AlmVR.Server.Providers.Trello
             {
                 ID = boardID,
                 SwimLanes = (from t in trelloSwimLanes
-                             select new BoardModel.SwimLaneModel
+                             select new SwimLaneModel
                              {
                                  ID = t.ID,
                                  Name = t.Name,
                                  Cards = (from c in t.Cards
-                                          select new BoardModel.CardModel
+                                          select new CardModel
                                           {
                                               ID = c.ID
                                           }).ToArray()
