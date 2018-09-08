@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AlmVR.Common.Models" Version="1.0.9-ga252fefe34" />
+    <PackageReference Include="AlmVR.Common.Models" Version="1.0.12-g73003ca503" />
     <PackageReference Include="Autofac" Version="4.8.1" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.2" />
     <PackageReference Include="Nerdbank.GitVersioning" Version="2.1.23" />
