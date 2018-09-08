@@ -4,6 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlmVR.Server", "AlmVR.Server\AlmVR.Server.csproj", "{212005D6-D474-41BD-9C17-05A38188E7FF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F59EB3AB-4BA7-46D5-BF46-51AB3C22F990} = {F59EB3AB-4BA7-46D5-BF46-51AB3C22F990}
+		{16114BDF-422B-4B25-A770-2EBF43AFC844} = {16114BDF-422B-4B25-A770-2EBF43AFC844}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlmVR.Server.Core", "AlmVR.Server.Core\AlmVR.Server.Core.csproj", "{DE605557-E9FB-4CDB-B128-CE2FAA3BF044}"
 EndProject

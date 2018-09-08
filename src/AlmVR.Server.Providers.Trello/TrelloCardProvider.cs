@@ -42,15 +42,13 @@ namespace AlmVR.Server.Providers.Trello
         {
             await InitializeAsync();
 
-            var url = $"{BaseUrl}/{card.ID}";
-            var payload = new
-            {
-                idlist = targetSwimLane.ID
-            };
+            var url = $"{BaseUrl}/{card.ID}/idList?value={targetSwimLane.ID}&{KeyAndToken}";
             
-            using (var content = new StringContent(JsonConvert.SerializeObject(payload)))
+            using (var content = new StringContent(string.Empty))
             using (var result = await HttpClient.PutAsync(url, content))
             {
+                var response = await result.Content.ReadAsStringAsync();
+
                 result.EnsureSuccessStatusCode();
             }
         }
