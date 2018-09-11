@@ -6,8 +6,6 @@ namespace AlmVR.Server.Core.Providers
 {
     public interface ICardProvider
     {
-        event EventHandler<CardChangedEventArgs> CardChanged;
-
         Task<CardModel> GetCardAsync(string id);
         Task MoveCardAsync(CardModel card, SwimLaneModel targetSwimLane);
     }

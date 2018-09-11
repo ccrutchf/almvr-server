@@ -8,6 +8,7 @@
   
     <ItemGroup>
       <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.2" />
+      <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.3" />
       <PackageReference Include="Nerdbank.GitVersioning" Version="2.2.13">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
@@ -17,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AlmVR.Server.Core\AlmVR.Server.Core.csproj" />
+    <ProjectReference Include="..\AlmVR.Server.Hubs\AlmVR.Server.Hubs.csproj" />
   </ItemGroup>
 
 </Project>

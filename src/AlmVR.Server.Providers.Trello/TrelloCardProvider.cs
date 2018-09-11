@@ -1,10 +1,13 @@
 ﻿using AlmVR.Common.Models;
 using AlmVR.Server.Core;
 using AlmVR.Server.Core.Providers;
+using AlmVR.Server.Hubs;
 using AlmVR.Server.Providers.Trello.Models;
+using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,15 +16,15 @@ namespace AlmVR.Server.Providers.Trello
 {
     public class TrelloCardProvider : TrelloProviderBase, ICardProvider
     {
+        private readonly IHubContext<CardHub> cardHubContext;
         private readonly TrelloWebHookProvider webHookProvider;
 
-        public TrelloCardProvider(TrelloWebHookProvider webHookProvider, IConfigurationProvider configurationProvider)
+        public TrelloCardProvider(TrelloWebHookProvider webHookProvider, IConfigurationProvider configurationProvider, IHubContext<CardHub> cardHubContext)
             : base(configurationProvider, "cards")
         {
+            this.cardHubContext = cardHubContext;
             this.webHookProvider = webHookProvider;
         }
-
-        public event EventHandler<CardChangedEventArgs> CardChanged;
 
         public async Task<CardModel> GetCardAsync(string id)
         {
@@ -61,9 +64,9 @@ namespace AlmVR.Server.Providers.Trello
             }
         }
 
-        internal void RaiseCardChanged(TrelloCardModel trelloCardModel)
+        internal Task NotifyClientsAsync(TrelloCardModel trelloCardModel)
         {
-            CardChanged?.Invoke(this, new CardChangedEventArgs(trelloCardModel.ToCommonCardModel()));
+            return cardHubContext.Clients.All.SendAsync("CardChanged", trelloCardModel.ToCommonCardModel());
         }
     }
 }

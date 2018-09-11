@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AlmVR.Server.Hubs
 {
-    public class BoardHub : Hub
+    public class BoardHub : HubBase
     {
         private IBoardProvider boardProvider;
 

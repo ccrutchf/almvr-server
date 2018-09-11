@@ -24,12 +24,12 @@ namespace AlmVR.Server.Providers.Trello
 
         public Task InitializeAsync(IContainer container)
         {
-            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-            {
-                Formatting = Formatting.Indented,
-                TypeNameHandling = TypeNameHandling.Objects,
-                ContractResolver = new CamelCasePropertyNamesContractResolver()
-            };
+            //JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            //{
+            //    Formatting = Formatting.Indented,
+            //    TypeNameHandling = TypeNameHandling.Objects,
+            //    ContractResolver = new CamelCasePropertyNamesContractResolver()
+            //};
 
             return container.Resolve<TrelloWebHookProvider>().PurgeWebHooksAsync();
         }

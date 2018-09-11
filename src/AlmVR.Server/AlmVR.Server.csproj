@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AlmVR.Server.Core\AlmVR.Server.Core.csproj" />
+    <ProjectReference Include="..\AlmVR.Server.Hubs\AlmVR.Server.Hubs.csproj" />
   </ItemGroup>
 
 </Project>

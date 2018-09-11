@@ -20,9 +20,9 @@ namespace AlmVR.Server.Providers.Trello.Controllers
         public IActionResult Head() => Ok();
 
         [HttpPost]
-        public IActionResult Post(TrelloCardModel cardModel)
+        public IActionResult Post([FromBody]TrelloCardModel cardModel)
         {
-            trelloCardProvider.RaiseCardChanged(cardModel);
+            trelloCardProvider.NotifyClientsAsync(cardModel);
 
             return Ok();
         }
