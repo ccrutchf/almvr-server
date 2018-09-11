@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace AlmVR.Server.Providers.Trello
 {
-    internal class TrelloWebHookProvider : TrelloProviderBase
+    public class TrelloWebHookProvider : TrelloProviderBase
     {
         private readonly Regex firstUpperCaseRegex;
 

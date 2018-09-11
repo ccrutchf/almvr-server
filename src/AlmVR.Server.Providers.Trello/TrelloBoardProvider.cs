@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace AlmVR.Server.Providers.Trello
 {
-    internal class TrelloBoardProvider : TrelloProviderBase, IBoardProvider
+    public class TrelloBoardProvider : TrelloProviderBase, IBoardProvider
     {
         public TrelloBoardProvider(IConfigurationProvider configurationProvider)
             : base(configurationProvider, "boards") { }

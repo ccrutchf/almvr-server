@@ -18,6 +18,7 @@ namespace AlmVR.Server.Providers.Trello
 
         protected string ApiKey { get; set; }
         protected IConfigurationProvider ConfigurationProvider { get; private set; }
+        protected string HostedUrl { get; set; }
         protected HttpClient HttpClient { get; } = new HttpClient();
         protected string Path { get; set; }
         protected string Token { get; set; }
@@ -35,6 +36,7 @@ namespace AlmVR.Server.Providers.Trello
 
             var config = await ConfigurationProvider.GetConfigurationAsync<TrelloConfiguration>();
             ApiKey = config.ApiKey;
+            HostedUrl = config.HostedUrl;
             Token = config.Token;
 
             await OnInitializedAsync();

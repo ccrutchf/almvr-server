@@ -25,10 +25,10 @@ namespace AlmVR.Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            var mvcBuilder = services.AddMvc();
             services.AddSignalR();
 
-            return ServiceProviderFactory.GetServiceProvider(services);
+            return ServiceProviderFactory.GetServiceProvider(services, mvcBuilder);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

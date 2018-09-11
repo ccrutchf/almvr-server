@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AlmVR.Server.Providers.Trello.Models
 {
-    internal class TrelloWebHook : IEquatable<TrelloWebHook>
+    public class TrelloWebHook : IEquatable<TrelloWebHook>
     {
         public string ID { get; set; }
         public string Description { get; set; }

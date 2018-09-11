@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace AlmVR.Server.Providers.Trello
 {
-    internal class TrelloCardProvider : TrelloProviderBase, ICardProvider
+    public class TrelloCardProvider : TrelloProviderBase, ICardProvider
     {
         private readonly TrelloWebHookProvider webHookProvider;
 
@@ -41,15 +41,11 @@ namespace AlmVR.Server.Providers.Trello
 
             await webHookProvider.SetAsync(new TrelloWebHook
             {
-                IdModel = trelloCard.ID,
-                CallbackURL = "http://example.com"
+                IdModel = trelloCard?.ID,
+                CallbackURL = $"{HostedUrl}/api/trellocard"
             });
 
-            return new CardModel
-            {
-                ID = trelloCard.ID,
-                Name = trelloCard.Name
-            };
+            return trelloCard?.ToCommonCardModel();
         }
 
         public async Task MoveCardAsync(CardModel card, SwimLaneModel targetSwimLane)
@@ -65,9 +61,9 @@ namespace AlmVR.Server.Providers.Trello
             }
         }
 
-        internal void RaiseCardChanged(CardModel card)
+        internal void RaiseCardChanged(TrelloCardModel trelloCardModel)
         {
-            CardChanged?.Invoke(this, new CardChangedEventArgs(card));
+            CardChanged?.Invoke(this, new CardChangedEventArgs(trelloCardModel.ToCommonCardModel()));
         }
     }
 }

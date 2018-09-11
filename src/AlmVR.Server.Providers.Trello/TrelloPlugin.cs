@@ -7,6 +7,8 @@ using Newtonsoft.Json.Serialization;
 using System;
 using System.Threading.Tasks;
 
+[assembly: ControllerAssembly]
+
 namespace AlmVR.Server.Providers.Trello
 {
     public class TrelloPlugin : IPlugin
@@ -15,6 +17,8 @@ namespace AlmVR.Server.Providers.Trello
         {
             builder.RegisterType<TrelloBoardProvider>().As<IBoardProvider>().SingleInstance();
             builder.RegisterType<TrelloCardProvider>().As<ICardProvider>().SingleInstance();
+
+            builder.RegisterType<TrelloCardProvider>().As<TrelloCardProvider>().SingleInstance();
             builder.RegisterType<TrelloWebHookProvider>().As<TrelloWebHookProvider>().SingleInstance();
         }
 
