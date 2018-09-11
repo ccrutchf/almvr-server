@@ -1,4 +1,5 @@
 ﻿using AlmVR.Common.Models;
+using AlmVR.Server.Core;
 using AlmVR.Server.Core.Providers;
 using AlmVR.Server.Providers.Trello.Models;
 using Newtonsoft.Json;
@@ -12,8 +13,15 @@ namespace AlmVR.Server.Providers.Trello
 {
     internal class TrelloCardProvider : TrelloProviderBase, ICardProvider
     {
-        public TrelloCardProvider(IConfigurationProvider configurationProvider)
-            : base(configurationProvider, "cards") { }
+        private readonly TrelloWebHookProvider webHookProvider;
+
+        public TrelloCardProvider(TrelloWebHookProvider webHookProvider, IConfigurationProvider configurationProvider)
+            : base(configurationProvider, "cards")
+        {
+            this.webHookProvider = webHookProvider;
+        }
+
+        public event EventHandler<CardChangedEventArgs> CardChanged;
 
         public async Task<CardModel> GetCardAsync(string id)
         {
@@ -22,14 +30,20 @@ namespace AlmVR.Server.Providers.Trello
             var url = $"{BaseUrl}/{id}?fields=all&{KeyAndToken}";
 
             string json = null;
-            using (var result = await HttpClient.GetAsync(url))
+            using (var response = await HttpClient.GetAsync(url))
             {
-                result.EnsureSuccessStatusCode();
+                response.EnsureSuccessStatusCode();
 
-                json = await result.Content.ReadAsStringAsync();
+                json = await response.Content.ReadAsStringAsync();
             }
 
             var trelloCard = JsonConvert.DeserializeObject<TrelloCardModel>(json);
+
+            await webHookProvider.SetAsync(new TrelloWebHook
+            {
+                IdModel = trelloCard.ID,
+                CallbackURL = "http://example.com"
+            });
 
             return new CardModel
             {
@@ -45,12 +59,15 @@ namespace AlmVR.Server.Providers.Trello
             var url = $"{BaseUrl}/{card.ID}/idList?value={targetSwimLane.ID}&{KeyAndToken}";
             
             using (var content = new StringContent(string.Empty))
-            using (var result = await HttpClient.PutAsync(url, content))
+            using (var response = await HttpClient.PutAsync(url, content))
             {
-                var response = await result.Content.ReadAsStringAsync();
-
-                result.EnsureSuccessStatusCode();
+                response.EnsureSuccessStatusCode();
             }
+        }
+
+        internal void RaiseCardChanged(CardModel card)
+        {
+            CardChanged?.Invoke(this, new CardChangedEventArgs(card));
         }
     }
 }

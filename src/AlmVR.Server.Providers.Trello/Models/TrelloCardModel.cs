@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AlmVR.Server.Providers.Trello.Models
 {
-    class TrelloCardModel
+    internal class TrelloCardModel
     {
         public string ID { get; set; }
         public string Name { get; set; }

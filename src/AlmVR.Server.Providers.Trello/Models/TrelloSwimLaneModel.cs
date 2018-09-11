@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AlmVR.Server.Providers.Trello.Models
 {
-    class TrelloSwimLaneModel
+    internal class TrelloSwimLaneModel
     {
         public class TrelloCardModel
         {

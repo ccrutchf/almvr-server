@@ -9,7 +9,7 @@ namespace AlmVR.Server.Providers.Trello
 {
     public abstract class TrelloProviderBase
     {
-        private const string TRELLO_URL = "https://trello.com/1";
+        protected const string TRELLO_URL = "https://trello.com/1";
 
         private bool initialized;
 
@@ -37,7 +37,14 @@ namespace AlmVR.Server.Providers.Trello
             ApiKey = config.ApiKey;
             Token = config.Token;
 
+            await OnInitializedAsync();
+
             initialized = true;
+        }
+
+        protected virtual Task OnInitializedAsync()
+        {
+            return Task.FromResult(0);
         }
     }
 }
