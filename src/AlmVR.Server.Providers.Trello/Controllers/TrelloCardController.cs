@@ -21,16 +21,11 @@ namespace AlmVR.Server.Providers.Trello.Controllers
         public IActionResult Head() => Ok();
 
         [HttpPost]
-        public IActionResult Post(/*[FromBody]TrelloCardModel cardModel*/)
+        public IActionResult Post([FromBody]TrelloWebHookCallbackModel<TrelloCardModel> callbackModel)
         {
-            using (var reader = new StreamReader(Request.Body))
-            {
-                Console.WriteLine(reader.ReadToEnd());
-            }
+            trelloCardProvider.NotifyClientsAsync(callbackModel.Model);
 
-                //trelloCardProvider.NotifyClientsAsync(cardModel);
-
-                return Ok();
+            return Ok();
         }
     }
 }
