@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace AlmVR.Server.Providers.Trello.Controllers
@@ -20,11 +21,16 @@ namespace AlmVR.Server.Providers.Trello.Controllers
         public IActionResult Head() => Ok();
 
         [HttpPost]
-        public IActionResult Post([FromBody]TrelloCardModel cardModel)
+        public IActionResult Post(/*[FromBody]TrelloCardModel cardModel*/)
         {
-            trelloCardProvider.NotifyClientsAsync(cardModel);
+            using (var reader = new StreamReader(Request.Body))
+            {
+                Console.WriteLine(reader.ReadToEnd());
+            }
 
-            return Ok();
+                //trelloCardProvider.NotifyClientsAsync(cardModel);
+
+                return Ok();
         }
     }
 }
