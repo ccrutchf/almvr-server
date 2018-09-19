@@ -7,7 +7,7 @@ A virtual reality (VR) application life cycle (ALM) management utility written f
 This repository contains the server component of AlmVR.  The server is responsible for managing the connection to the ALM software that AlmVR uses as its backend (ie Trello).
 
 ## How?
-The server component is written in `C#` using `.NET Core`, `ASP.NET Core`, and `SignalR`.  The server is written with a plugin architecture that allows the ALM backend software (ie Trello) to be replaced without having to modify any of the clients.
+The server component is written in `C#` using `.NET Core`, `ASP.NET Core`, and `SignalR`.  The server is written with a plugin architecture that allows the ALM products (ie Trello) to be replaced without having to modify any of the clients.
 
 ### Plugins
 Plugins are a `.NET Standard` or `.NET Core` assembly that contains a class which implements `AlmVR.Server.Core.IPlugin`.  The implementations of `IPlugin` are then able to register their own implementations of the core providers, which reside in the `AlmVR.Server.Core.Providers` namespace, with `Autofac`.  An example plugin for Trello can be found in the `AlmVR.Server.Providers.Trello` project.
