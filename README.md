@@ -60,3 +60,17 @@ Another motivation for the Client-Server architecture is to support Trello's web
 The choice to implement a plugin architecture was made so that the project could easily be adopted to use other ALM products (ie Azure DevOps, Jira, etc).
 
 The continuous integration built script was put together to facilitate deployments of the server binaries without connecting to the VPS manually.
+
+## Struggles
+* Beta software - During development, we started with beta versions of `.NET Core`, `ASP.NET Core`, `SignalR`.  These dependencies saw their APIs change during development.
+* Public facing server for Trello webhooks - It was necessary for Trello to be able to hit our server, so we had to make it public facing.  This prevented us from being able run/deploy the server from the lab necessitating significant build efforts.
+* Initially AppVeyor did not support Linux builds, so it was not possible to build the project and deploy to our VPS using AppVeyor.  We ended up setting up TravisCI and then migrating back AppVeyor.
+
+## How to build
+The following software is required to build this project:
+* Visual Studio 2017
+* .NET Core 2.1 SDK
+* PowerShell 5.1/PowerShell 6 Core/Bash (minimum one)
+* Docker
+
+Execute the `build.ps1` or `build.sh` file found in the root of the repository.  This builds the Docker container which can then be run.
